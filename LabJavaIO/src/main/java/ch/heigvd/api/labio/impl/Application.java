@@ -5,6 +5,7 @@ import ch.heigvd.api.labio.quotes.QuoteClient;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -135,7 +136,10 @@ public class Application {
      *   using an output stream.
      *   Write the file with encoding UTF-8.
      */
-
+    FileOutputStream fos = new FileOutputStream(file);
+    fos.write(quote.getQuote().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+    fos.flush();
+    fos.close();
   }
   
   public void processQuoteFiles() throws IOException {
