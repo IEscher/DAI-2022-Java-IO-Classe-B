@@ -34,4 +34,9 @@ public class LineNumberingCharTransformer {
     //throw new UnsupportedOperationException("The student has not implemented this method yet.");
     return c;
   }
+
+  public void resetAttributs() {
+    firstLineSet = false;
+    lineNumber = 1;
+  }
 }
