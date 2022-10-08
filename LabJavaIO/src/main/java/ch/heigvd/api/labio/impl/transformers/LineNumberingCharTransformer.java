@@ -22,13 +22,15 @@ public class LineNumberingCharTransformer {
   private int lineNumber = 1;
 
   public String transform(String c) {
+    String oldC = c;
     c = c.replace("\r", "");
+
     if (!firstLineSet) {
       firstLineSet = true;
-      return String.valueOf(lineNumber++) + ". " + c;
+      c = String.valueOf(lineNumber++) + ". " + c;
     }
 
-    if (c.equals("\n")) {
+    if (oldC.equals("\n")) {
       return c + String.valueOf(lineNumber++) + ". ";
     }
     //throw new UnsupportedOperationException("The student has not implemented this method yet.");
