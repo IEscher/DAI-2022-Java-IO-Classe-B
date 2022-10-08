@@ -32,4 +32,18 @@ public class CombinedCharTransformerTest {
         String target = "1. ABCDEFGABCDEFG\t12345 !?'.\n2. ANOTHER LINE...\n3. THIRD LINE.\n4. ";
         assertEquals(target, transform(source));
     }
+
+    @Test
+    public void withRAndNSwitched() {
+        String source = "abcdefgABCDEFG\t12345 !?'.\n\rAnother Line...\nThird Line.\n\r";
+        String target = "1. ABCDEFGABCDEFG\t12345 !?'.\n2. ANOTHER LINE...\n3. THIRD LINE.\n4. ";
+        assertEquals(target, transform(source));
+    }
+
+    @Test
+    public void withAdditionalR() {
+        String source = "abcdefg\rABCDEFG\t123\r45 !?'.\n\rAnother\r Line...\nThird Line.\n\r";
+        String target = "1. ABCDEFGABCDEFG\t12345 !?'.\n2. ANOTHER LINE...\n3. THIRD LINE.\n4. ";
+        assertEquals(target, transform(source));
+    }
 }
