@@ -22,18 +22,29 @@ public class LineNumberingCharTransformer {
   private int lineNumber = 1;
 
   public String transform(String c) {
-    String oldC = c;
-    c = c.replace("\r", "");
+    /* '\r' is a char that we want to remove,
+     * so it become the first condition to pass */
+    if (c.equals("\r"))
+      return c.replace("\r", "");
 
+    /* Then we analyse if it is the first time we make a transformation
+    * to number the first line */
     if (!firstLineSet) {
       firstLineSet = true;
+      String oldC = c;
       c = String.valueOf(lineNumber++) + ". " + c;
+      /* If the first line start with a '\n' we update
+       * directly the second line with its lineNumber */
+      if (oldC.equals("\n"))
+        return c += String.valueOf(lineNumber++) + ". ";
     }
 
-    if (oldC.equals("\n")) {
+    /* Update following line after a '\n' */
+    if (c.equals("\n")) {
       return c + String.valueOf(lineNumber++) + ". ";
     }
-    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
+
+    /* Otherwise, simply return the char */
     return c;
   }
 
