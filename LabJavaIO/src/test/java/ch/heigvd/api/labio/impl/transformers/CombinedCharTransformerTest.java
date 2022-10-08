@@ -26,6 +26,17 @@ public class CombinedCharTransformerTest {
         return output.toString();
     }
 
+    private String transformCombinaison(String input) {
+        CombinedTransformer transformer = new CombinedTransformer();
+        StringBuilder output = new StringBuilder();
+        for (int i=0; i<input.length(); i++) {
+            String s = Character.toString(input.charAt(i));
+            output.append(transformer.transform(s));
+        }
+        transformer.resetLineTransformer();
+        return output.toString();
+    }
+
     @Test
     public void itShouldTransformCharacters() {
         String source = "abcdefgABCDEFG\t12345 !?'.\r\nAnother Line...\nThird Line.\r\n";
@@ -45,5 +56,33 @@ public class CombinedCharTransformerTest {
         String source = "abcdefg\rABCDEFG\t123\r45 !?'.\n\rAnother\r Line...\nThird Line.\n\r";
         String target = "1. ABCDEFGABCDEFG\t12345 !?'.\n2. ANOTHER LINE...\n3. THIRD LINE.\n4. ";
         assertEquals(target, transform(source));
+    }
+
+    @Test
+    public void combinedTransformerClass() {
+        String source = "abcdefg\rABCDEFG\t123\r45 !?'.\n\rAnother\r Line...\nThird Line.\n\r";
+        String target = "1. ABCDEFGABCDEFG\t12345 !?'.\n2. ANOTHER LINE...\n3. THIRD LINE.\n4. ";
+        assertEquals(target, transformCombinaison(source));
+    }
+
+    @Test
+    public void combinedTransfStartingWithN() {
+        String source = "\nabcdefg\rABCDEFG\t123\r45 !?'.\n\rAnother\r Line...\nThird Line.\n\r";
+        String target = "1. \n2. ABCDEFGABCDEFG\t12345 !?'.\n3. ANOTHER LINE...\n4. THIRD LINE.\n5. ";
+        assertEquals(target, transformCombinaison(source));
+    }
+
+    @Test
+    public void combinedTransfStartingWithNR() {
+        String source = "\n\rabcdefg\rABCDEFG\t123\r45 !?'.\n\rAnother\r Line...\nThird Line.\n\r";
+        String target = "1. \n2. ABCDEFGABCDEFG\t12345 !?'.\n3. ANOTHER LINE...\n4. THIRD LINE.\n5. ";
+        assertEquals(target, transformCombinaison(source));
+    }
+
+    @Test
+    public void combinedTransfStartingWithRN() {
+        String source = "\r\nabcdefg\rABCDEFG\t123\r45 !?'.\n\rAnother\r Line...\nThird Line.\n\r";
+        String target = "1. \n2. ABCDEFGABCDEFG\t12345 !?'.\n3. ANOTHER LINE...\n4. THIRD LINE.\n5. ";
+        assertEquals(target, transformCombinaison(source));
     }
 }
