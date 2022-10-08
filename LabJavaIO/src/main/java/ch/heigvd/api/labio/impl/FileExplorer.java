@@ -30,8 +30,7 @@ public class FileExplorer {
 
             if ( rootDirectory.isFile() ) {
                 if ( FilenameUtils.getExtension(rootDirectory.getName()).equals("utf8") ) {
-                    //transformer.transform(rootDirectory);
-                    System.out.println(rootDirectory.getName());
+                    transformer.transform(rootDirectory);
                 }
             } else if ( rootDirectory.isDirectory() ) {
                 File[] subfiles = rootDirectory.listFiles();
