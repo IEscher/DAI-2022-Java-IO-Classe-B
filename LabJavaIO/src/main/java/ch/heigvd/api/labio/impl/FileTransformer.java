@@ -40,8 +40,8 @@ public class FileTransformer {
      *  and the LineNumberCharTransformer.
      */
     //NoOpCharTransformer transformer = new NoOpCharTransformer();
-    UpperCaseCharTransformer transformer1 = new UpperCaseCharTransformer();
-    LineNumberingCharTransformer transformer2 = new LineNumberingCharTransformer();
+    //UpperCaseCharTransformer transformer1 = new UpperCaseCharTransformer();
+    //LineNumberingCharTransformer transformer2 = new LineNumberingCharTransformer();
     CombinedTransformer transformer = new CombinedTransformer();
 
     /* TODO: implement the following logic here:
@@ -55,26 +55,22 @@ public class FileTransformer {
     try {
       java.nio.charset.Charset encoding = java.nio.charset.StandardCharsets.UTF_8;
       FileReader fileReader = new FileReader(inputFile, encoding);
-      FileWriter fileWriter = new FileWriter(inputFile + ".out", encoding);
-
       String contentTransformed = "";
 
-      /* COPYING CONTENT */
+      /* RECOVERING CONTENT + APPLYING TRANSFORMATIONS */
+      /* Work with both approach */
       int c;
-      while ((c = fileReader.read()) != -1) {
-        //fileWriter.write((char)c);
+      while ((c = fileReader.read()) != -1)
         contentTransformed += transformer.transform(Character.toString(c));
-        //contentTransformed += transformer1.transform(transformer2.transform(Character.toString(c)));
-        //fileWriter.write(transformer.transform(Character.toString(c)));
+        //contentTransformed += transformer1.transform(
+        //        transformer2.transform(
+        //                Character.toString(c)));
 
-      }
-
+      /* WRITING CONTENT TO WRITER + CLOSING IT */
       FileOutputStream fos = new FileOutputStream(inputFile + ".out");
       fos.write(contentTransformed.getBytes(encoding));
       fos.flush();
       fos.close();
-      /* APPLYING TRANSFORMATION */
-
     } catch (Exception ex) {
       LOG.log(Level.SEVERE, "Error while reading, writing or transforming file.", ex);
     }
