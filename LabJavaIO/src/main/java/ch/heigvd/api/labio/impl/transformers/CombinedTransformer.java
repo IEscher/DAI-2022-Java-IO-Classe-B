@@ -14,9 +14,9 @@ import java.util.logging.Logger;
  */
 public class CombinedTransformer {
     private static final Logger LOG = Logger.getLogger(CombinedTransformer.class.getName());
-    private static final LineNumberingCharTransformer lineTransformer
+    private final LineNumberingCharTransformer lineTransformer
             = new LineNumberingCharTransformer();
-    private static final UpperCaseCharTransformer upperCaseTransformer
+    private final UpperCaseCharTransformer upperCaseTransformer
             = new UpperCaseCharTransformer();
 
     public String transform(String c) {
