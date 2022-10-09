@@ -85,4 +85,19 @@ public class CombinedCharTransformerTest {
         String target = "1. \n2. ABCDEFGABCDEFG\t12345 !?'.\n3. ANOTHER LINE...\n4. THIRD LINE.\n5. ";
         assertEquals(target, transformCombinaison(source));
     }
+
+    @Test
+    public void combinedTransformerWithEmptyFile() {
+        /* Because source length equals 0, so it will not do transformation */
+        String source = "";
+        String target = "";
+        assertEquals(target, transformCombinaison(source));
+    }
+
+    @Test
+    public void combinedTransformerWithOneSpace() {
+        String source = " ";
+        String target = "1.  ";
+        assertEquals(target, transformCombinaison(source));
+    }
 }
