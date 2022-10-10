@@ -44,6 +44,7 @@ public class CombinedCharTransformerTest {
         assertEquals(target, transform(source));
     }
 
+    /* Additional tests concerning switch between \n & \r + CombinedTransformer */
     @Test
     public void withRAndNSwitched() {
         String source = "abcdefgABCDEFG\t12345 !?'.\n\rAnother Line...\nThird Line.\n\r";
